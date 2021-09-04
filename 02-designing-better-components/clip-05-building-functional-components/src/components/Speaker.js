@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+
 function Session({ title, room }) {
     return (
         <span className="session w-100">
@@ -35,6 +37,7 @@ function SpeakerFavorite({ favorite, onFavoriteToggle }) {
         <div className="action padB1">
             <span>
                 <i className={favorite ? 'fa fa-star orange' : 'fa fa-star-o orange'} onClick={() => onFavoriteToggle(doneCallBack)} />
+                {" "}Favorite{" "}
             </span>
         </div>
     )
