@@ -27,15 +27,20 @@ export const useRequestDelay = (delayInMs, initialData = []) => {
     }
     delayResponse();
   }, []);
- 
-  const updateRecord = (updatedRecord) => {
+
+  const updateRecord = (updatedRecord, doneCallback) => {
+    const initialRecords = [...data];
+    const newRecords = data.map(record => record.id === updatedRecord.id ? updatedRecord : record);
 
     async function reqWithDelay() {
       try {
-        await delay(delayInMs);
         setData(newRecords);
+        await delay(delayInMs);
+        if (doneCallback) {
+          doneCallback();
+        }
       } catch (e) {
-        setData(originalData);
+        setData(initialRecords);
         console.error(`Throw new error while loading !!` + e)
       }
     }

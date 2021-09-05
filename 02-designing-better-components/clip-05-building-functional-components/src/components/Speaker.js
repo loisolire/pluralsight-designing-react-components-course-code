@@ -30,10 +30,16 @@ function SpeakerImage({ id, first, last }) {
 }
 
 function SpeakerFavorite({ favorite, onFavoriteToggle }) {
+    const [favoriteLoading, setFavoriteLoading] = useState(false);
+    const doneCallBack = () => {
+        setFavoriteLoading(false);
+        console.log(`done callback called in SpeakerFavorite component at ${new Date().getMilliseconds()}`);
+    }
     return (
         <div className="action padB1">
             <span>
-                <i className={favorite ? 'fa fa-star orange' : 'fa fa-star-o orange'} onClick={onFavoriteToggle} />
+                <i className={favorite ? 'fa fa-star orange' : 'fa fa-star-o orange'} onClick={() => { setFavoriteLoading(true); onFavoriteToggle(doneCallBack); }} />
+                {favoriteLoading && <h1>Loading...</h1>}
             </span>
         </div>
     )
