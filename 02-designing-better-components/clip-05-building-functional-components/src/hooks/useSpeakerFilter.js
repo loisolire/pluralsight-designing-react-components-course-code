@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const useSpeakeFilter = (startingShowSessions) => {
+export const useSpeakerFilter = (startingShowSessions) => {
     const [showSessions, setShowSessions] = useState(startingShowSessions);
 
     return {

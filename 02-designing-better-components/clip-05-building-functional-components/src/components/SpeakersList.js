@@ -3,9 +3,10 @@ import ReactPlaceHolder from "react-placeholder";
 import { data } from '../../SpeakerData';
 import { useRequestDelay, REQUEST_STATUS } from "../hooks/useRequestDelay";
 
-function SpeakersList({ showSessions }) {
+function SpeakersList() {
   const { data: speakerData, requestStatus, error, updateRecord } =
     useRequestDelay(500, data);
+
   if (requestStatus === REQUEST_STATUS.FAILURE) {
     return (
       <div className="text-danger" style={{ textAlign: "center" }}>
@@ -29,7 +30,6 @@ function SpeakersList({ showSessions }) {
               <Speaker
                 key={speaker.id}
                 speaker={speaker}
-                showSessions={showSessions}
                 onFavoriteToggle={(doneCallBack) => updateRecord({ ...speaker, favorite: !speaker.favorite }, doneCallBack)}
               />
             );
