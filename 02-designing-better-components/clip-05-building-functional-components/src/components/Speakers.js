@@ -5,7 +5,7 @@ import { SpeakerFilterProvider } from '../contexts/SpeakerFilterContext';
 
 const Speakers = () => {
     return (
-        <SpeakerFilterProvider startingShowSession={true}>
+        <SpeakerFilterProvider startingShowSession={true} startingEventYear="2019">
             <SpeakersToolbar />
             <SpeakersList />
         </SpeakerFilterProvider>
