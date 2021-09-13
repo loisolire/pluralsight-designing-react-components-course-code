@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { SpeakerProvider, SpeakerContext } from '../contexts/SpeakerContext';
 import { SpeakerFilterContext } from '../contexts/SpeakerFilterContext';
 
 function Session({ title, room }) {
@@ -9,7 +10,8 @@ function Session({ title, room }) {
     )
 }
 
-function Sessions({ sessions }) {
+function Sessions() {
+    const { speaker: { sessions } } = useContext(SpeakerContext);
     const { eventYear } = useContext(SpeakerFilterContext);
     return (
         <div className="sessionBox card h-250">
@@ -23,7 +25,8 @@ function Sessions({ sessions }) {
     )
 }
 
-function SpeakerImage({ id, first, last }) {
+function SpeakerImage() {
+    const { speaker: { id, first, last } } = useContext(SpeakerContext);
     return (
         <div className="speaker-img d-flex flex-row justify-content-center align-items-center h-300">
             <img
@@ -36,8 +39,9 @@ function SpeakerImage({ id, first, last }) {
     )
 }
 
-function SpeakerFavorite({ favorite, onFavoriteToggle }) {
+function SpeakerFavorite() {
     const [favoriteLoading, setFavoriteLoading] = useState(false);
+    const { speaker, updateRecord } = useContext(SpeakerContext);
     const doneCallBack = () => {
         setFavoriteLoading(false);
         console.log(`done callback called in SpeakerFavorite component at ${new Date().getMilliseconds()}`);
@@ -45,14 +49,18 @@ function SpeakerFavorite({ favorite, onFavoriteToggle }) {
     return (
         <div className="action padB1">
             <span>
-                <i className={favorite ? 'fa fa-star orange' : 'fa fa-star-o orange'} onClick={() => { setFavoriteLoading(true); onFavoriteToggle(doneCallBack); }} />
+                <i className={speaker.favorite ? 'fa fa-star orange' : 'fa fa-star-o orange'} onClick={() => {
+                    setFavoriteLoading(true);
+                    updateRecord({ ...speaker, favorite: !speaker.favorite }, doneCallBack);
+                }} />
                 {favoriteLoading && <h1>Loading...</h1>}
             </span>
         </div>
     )
 }
 
-function SpeakerDemographics({ id, first, last, bio, company, twitterHandle, favorite, onFavoriteToggle }) {
+function SpeakerDemographics() {
+    const { speaker: { first, last, bio, company, twitterHandle } } = useContext(SpeakerContext);
     return (
         <div className="speaker-info">
             <div className="d-flex justify-content-between mb-3">
@@ -60,7 +68,7 @@ function SpeakerDemographics({ id, first, last, bio, company, twitterHandle, fav
                     {first} {last}
                 </h3>
             </div>
-            <SpeakerFavorite favorite={favorite} onFavoriteToggle={onFavoriteToggle} />
+            <SpeakerFavorite />
             <div>
                 <p className="card-description">
                     {bio}
@@ -80,21 +88,16 @@ function SpeakerDemographics({ id, first, last, bio, company, twitterHandle, fav
     )
 }
 
-function Speaker({ speaker, onFavoriteToggle }) {
+function Speaker() {
     const { showSessions } = useContext(SpeakerFilterContext);
-    const {
-        id,
-        first,
-        last,
-        sessions,
-    } = speaker;
+
     return (
-        <div key={id} className="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-sm-12 col-xs-12">
+        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-sm-12 col-xs-12">
             <div className="card card-height p-4 mt-4">
-                <SpeakerImage id={id} first={first} last={last} />
-                <SpeakerDemographics {...speaker} onFavoriteToggle={onFavoriteToggle} />
+                <SpeakerImage />
+                <SpeakerDemographics />
             </div>
-            {showSessions && <Sessions sessions={sessions} />}
+            {showSessions && <Sessions />}
         </div>
     )
 }

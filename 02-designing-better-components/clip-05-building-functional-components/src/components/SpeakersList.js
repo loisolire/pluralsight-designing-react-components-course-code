@@ -4,6 +4,7 @@ import { data } from '../../SpeakerData';
 import { useRequestDelay, REQUEST_STATUS } from "../hooks/useRequestDelay";
 import { useContext } from "react";
 import { SpeakerFilterContext } from "../contexts/SpeakerFilterContext";
+import { SpeakerProvider } from "../contexts/SpeakerContext";
 
 function SpeakersList() {
   const { data: speakerData, requestStatus, error, updateRecord } =
@@ -39,11 +40,11 @@ function SpeakersList() {
             ))
             .map(function (speaker) {
               return (
-                <Speaker
-                  key={speaker.id}
-                  speaker={speaker}
-                  onFavoriteToggle={(doneCallBack) => updateRecord({ ...speaker, favorite: !speaker.favorite }, doneCallBack)}
-                />
+                <SpeakerProvider speaker={speaker} updateRecord={updateRecord}>
+                  <Speaker
+                    key={speaker.id}
+                  />
+                </SpeakerProvider>
               );
             })}
         </div>
