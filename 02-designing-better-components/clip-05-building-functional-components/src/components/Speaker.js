@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { SpeakerProvider, SpeakerContext } from '../contexts/SpeakerContext';
 import { SpeakerFilterContext } from '../contexts/SpeakerFilterContext';
+import { data } from '../../SpeakerData';
 
 function Session({ title, room }) {
     return (
@@ -88,17 +89,20 @@ function SpeakerDemographics() {
     )
 }
 
-function Speaker() {
+function Speaker({speaker}) {
     const { showSessions } = useContext(SpeakerFilterContext);
+    const { updateRecord, deleteRecord, insertRecord } = useRequestDelay(500, data);
 
     return (
-        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-sm-12 col-xs-12">
-            <div className="card card-height p-4 mt-4">
-                <SpeakerImage />
-                <SpeakerDemographics />
+        <SpeakerProvider speaker={speaker} updateRecord={updateRecord} insertRecord={insertRecord} deleteRecord={deleteRecord}>
+            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-sm-12 col-xs-12">
+                <div className="card card-height p-4 mt-4">
+                    <SpeakerImage />
+                    <SpeakerDemographics />
+                </div>
+                {showSessions && <Sessions />}
             </div>
-            {showSessions && <Sessions />}
-        </div>
+        </SpeakerProvider>
     )
 }
 

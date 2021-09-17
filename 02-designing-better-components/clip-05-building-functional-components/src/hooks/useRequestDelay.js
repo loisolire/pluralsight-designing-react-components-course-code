@@ -28,9 +28,48 @@ export const useRequestDelay = (delayInMs, initialData = []) => {
     delayResponse();
   }, []);
 
-  const updateRecord = (updatedRecord, doneCallback) => {
+  const updateRecord = (record, doneCallback) => {
     const initialRecords = [...data];
-    const newRecords = data.map(record => record.id === updatedRecord.id ? updatedRecord : record);
+    const newRecords = data.map(rec => rec.id === record.id ? record : rec);
+
+    async function reqWithDelay() {
+      try {
+        setData(newRecords);
+        await delay(delayInMs);
+        if (doneCallback) {
+          doneCallback();
+        }
+      } catch (e) {
+        setData(initialRecords);
+        console.error(`Throw new error while loading !!` + e)
+      }
+    }
+
+    reqWithDelay();
+  }
+
+  const insertRecord = (record, doneCallback) => {
+    const newRecords = [...data, record];
+
+    async function reqWithDelay() {
+      try {
+        setData(newRecords);
+        await delay(delayInMs);
+        if (doneCallback) {
+          doneCallback();
+        }
+      } catch (e) {
+        setData(initialRecords);
+        console.error(`Throw new error while loading !!` + e)
+      }
+    }
+
+    reqWithDelay();
+  }
+
+  const deleteRecord = (record, doneCallback) => {
+    const originalRecords = [...data];
+    const newRecords = originalRecords.filter(rec=>rec.id !== record.id);
 
     async function reqWithDelay() {
       try {
@@ -53,5 +92,7 @@ export const useRequestDelay = (delayInMs, initialData = []) => {
     requestStatus,
     error,
     updateRecord,
+    insertRecord,
+    deleteRecord
   };
 }

@@ -7,7 +7,7 @@ import { SpeakerFilterContext } from "../contexts/SpeakerFilterContext";
 import { SpeakerProvider } from "../contexts/SpeakerContext";
 
 function SpeakersList() {
-  const { data: speakerData, requestStatus, error, updateRecord } =
+  const { data: speakerData, requestStatus, error } =
     useRequestDelay(500, data);
   const { searchQuery, eventYear } = useContext(SpeakerFilterContext);
 
@@ -40,11 +40,9 @@ function SpeakersList() {
             ))
             .map(function (speaker) {
               return (
-                <SpeakerProvider speaker={speaker} updateRecord={updateRecord}>
-                  <Speaker
+                  <Speaker speaker={speaker}
                     key={speaker.id}
                   />
-                </SpeakerProvider>
               );
             })}
         </div>
