@@ -8,9 +8,9 @@ const writeFile = promisify(fs.writeFile);
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const jsonFile = path.resolve("./", "db.json");
-
 export default async function handler(req, res) {
+  const jsonFile = path.resolve("./", "db.json");
+
   const method = req?.method;
   const id = parseInt(req?.query.id);
   const bodyRecord = req?.body;
@@ -29,7 +29,7 @@ export default async function handler(req, res) {
       res.status(500).send("No method indicated in request !");
   }
 
-  function putHandler() {
+  async function putHandler() {
     try {
       const readFileData = await readFile(jsonFile);
       await delay(1000);
@@ -41,12 +41,15 @@ export default async function handler(req, res) {
         const updatedSpeakers = speakers.map((rec) =>
           rec.id == id ? bodyRecord : rec
         );
-        writeFile(jsonFile, JSON.stringify(updatedSpeakers));
-        res.setHeader({ "Content-Type": "application/json" });
+        writeFile(
+          jsonFile,
+          JSON.stringify({ speakers: updatedSpeakers }, null, 2)
+        );
+        res.setHeader("Content-Type", "application/json");
         res
           .status(200)
-          .send(JSON.stringify({ speakers: updatedSpeakers }, null, 2));
-        console.log(`PUT api/peakers ok !`);
+          .send(JSON.stringify(bodyRecord, null, 2));
+        console.log(`PUT api/speakers/${id} ok !`);
       }
     } catch (e) {
       res.status(500).send(`Request PUT /api/${id} failed`, e);
@@ -54,7 +57,7 @@ export default async function handler(req, res) {
     }
   }
 
-  function postHandler() {
+  async function postHandler() {
     try {
       const readFileData = await readFile(jsonFile);
       await delay(1000);
@@ -64,14 +67,14 @@ export default async function handler(req, res) {
         res.status(404).send("Request failed with code 404 ");
       } else {
         const newId = speakers.reduce((acc, cur) => (parseInt(cur.id) > acc ? parseInt(cur.id) : acc), 0) + 1;
-        const newSpeaker = {...speaker, id: newId.toString() };
+        const newSpeaker = { ...bodyRecord, id: newId.toString() };
         const newSpeakers = [newSpeaker, ...speakers];
-        writeFile(jsonFile, JSON.stringify(newSpeakers));
-        res.setHeader({ "Content-Type": "application/json" });
+        writeFile(jsonFile, JSON.stringify({ speakers: newSpeakers }, null, 2));
+        res.setHeader("Content-Type", "application/json");
         res
           .status(200)
           .send(JSON.stringify({ speaker: newSpeaker }, null, 2));
-        console.log(`POST api/peakers ok !`);
+        console.log(`POST api/peakers ${id} ok !`);
       }
     } catch (e) {
       res.status(500).send(`Request POST /api/${id} failed`, e);
@@ -79,7 +82,7 @@ export default async function handler(req, res) {
     }
   }
 
-  function deleteHandler() {
+  async function deleteHandler() {
     try {
       const readFileData = await readFile(jsonFile);
       await delay(1000);
@@ -88,12 +91,12 @@ export default async function handler(req, res) {
       if (!speakers) {
         res.status(404).send("Request failed with code 404 ");
       } else {
-        const newSpeakers = speakers.filter(speaker=>speaker.id != id);
-        writeFile(jsonFile, JSON.stringify(newSpeakers));
-        res.setHeader({ "Content-Type": "application/json" });
+        const newSpeakers = speakers.filter(speaker => speaker.id != id);
+        writeFile(jsonFile, JSON.stringify({ speakers: newSpeakers }));
+        res.setHeader("Content-Type", "application/json");
         res
           .status(200)
-          .send(JSON.stringify({ speaker: speakers.find(rec=>rec.id == id) }, null, 2));
+          .send(JSON.stringify({ speaker: speakers.find(rec => rec.id == id) }, null, 2));
         console.log(`POST api/peakers ok !`);
       }
     } catch (e) {
