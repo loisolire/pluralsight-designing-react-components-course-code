@@ -1,123 +1,21 @@
 {
   "speakers": [
     {
-      "id": "8590",
-      "first": "Chris",
-      "last": "Richardson",
-      "company": "Eventuate, Inc",
-      "bio": "Founder of Eventuate, Author of POJOs in Action, creator of the original Cloud Foundry",
-      "twitterHandle": "crichardson",
-      "favorite": false,
+      "id": "47344",
+      "first": "ee",
+      "last": "rrr",
+      "bio": "Bio not entered here",
       "sessions": [
         {
-          "id": "1011",
-          "title": "Decomposing applications for scalability and deployability",
-          "eventYear": "2012",
+          "id": "88888",
+          "title": "New session extra for ee !!",
           "room": {
-            "name": "4306",
-            "capacity": 100
-          }
-        },
-        {
-          "id": "1133",
-          "title": "Developing polyglot persistence applications",
-          "eventYear": "2013",
-          "room": {
-            "name": "5502",
-            "capacity": 70
-          }
-        },
-        {
-          "id": "1136",
-          "title": "Consuming web services asynchronously with Futures and Rx Observables",
-          "eventYear": "2013",
-          "room": {
-            "name": "8338",
-            "capacity": 120
-          }
-        },
-        {
-          "id": "1454",
-          "title": "Developing applications with a micro-service architecture",
-          "eventYear": "2014",
-          "room": {
-            "name": "8338",
-            "capacity": 120
-          }
-        },
-        {
-          "id": "1455",
-          "title": "Map, flatmap and reduce are your new best friends",
-          "eventYear": "2014",
-          "room": {
-            "name": "5502",
-            "capacity": 70
-          }
-        },
-        {
-          "id": "4765",
-          "title": "Developing event-driven microservices with event sourcing and CQRS",
-          "eventYear": "2015",
-          "room": {
-            "name": "AB-201",
-            "capacity": 66
-          }
-        },
-        {
-          "id": "6080",
-          "title": "Developing Microservices with Aggregates",
-          "eventYear": "2016",
-          "room": {
-            "name": "RF-141",
-            "capacity": 58
-          }
-        },
-        {
-          "id": "6214",
-          "title": "There Is No Such Thing as a Microservice!",
-          "eventYear": "2017",
-          "room": {
-            "name": "Town Square C",
-            "capacity": 130
-          }
-        },
-        {
-          "id": "7401",
-          "title": "Developing Asynchronous, Message-Driven Microservices",
-          "eventYear": "2018",
-          "room": {
-            "name": "Round Table",
-            "capacity": 75
-          }
-        },
-        {
-          "id": "7402",
-          "title": "Microservices: Decomposing Applications for Testability and Deployability",
-          "eventYear": "2018",
-          "room": {
-            "name": "Town Square B",
-            "capacity": 130
-          }
-        },
-        {
-          "id": "7460",
-          "title": "Microservices and Serverless Speaker Panel â€“ The Road Ahead",
-          "eventYear": "2018",
-          "room": {
-            "name": "Town Square B",
-            "capacity": 130
-          }
-        },
-        {
-          "id": "7515",
-          "title": "Cubes, Hexagons and More: Understanding the Microservices Through Shapes",
-          "eventYear": "2019",
-          "room": {
-            "name": "Town Square C",
-            "capacity": 130
-          }
+            "name": "Main bal room"
+          },
+          "eventYear": "2019"
         }
-      ]
+      ],
+      "favorite": true
     },
     {
       "id": "5443",
@@ -292,7 +190,7 @@
       "company": "Moon Highway",
       "bio": "Eve Porcello is an instructor at Moon Highway, egghead.io, and LinkedIn Learning.",
       "twitterHandle": "eveporcello",
-      "favorite": true,
+      "favorite": false,
       "sessions": [
         {
           "id": "7548",
